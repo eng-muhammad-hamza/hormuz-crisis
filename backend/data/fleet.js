@@ -1,0 +1,48 @@
+const FLEET_DATA = {
+  scenario: {
+    name: "Strait of Hormuz Crisis",
+    description: "Major shipping chokepoint flagged as a High-Risk Red Zone after sudden geopolitical instability and naval blockades.",
+  },
+  boundingBox: { north: 30.5, south: 22.0, east: 60.0, west: 47.5 },
+  navigableWater: [
+    [29.80, 48.60],[29.50, 50.00],[28.80, 50.80],[27.80, 52.00],
+    [26.70, 53.50],[26.30, 55.00],[26.65, 56.10],[26.50, 56.40],
+    [26.00, 56.80],[25.50, 57.50],[25.50, 58.50],[25.00, 60.00],
+    [22.00, 60.00],[22.50, 60.00],[23.80, 58.80],[24.50, 57.20],
+    [25.20, 56.50],[26.45, 56.45],[26.30, 55.90],[26.00, 55.50],
+    [25.30, 54.50],[24.80, 53.00],[25.30, 52.00],[26.40, 51.50],
+    [26.50, 50.30],[27.50, 49.80],[28.50, 49.00],[29.50, 48.30],
+    [29.80, 48.60],
+  ],
+  ports: [
+    { id: "KWT-1", name: "Kuwait City",  position: [29.48, 48.34] },
+    { id: "BUS-1", name: "Bushehr",      position: [28.83, 50.73] },
+    { id: "DMM-1", name: "Dammam",       position: [26.56, 50.30] },
+    { id: "BAH-1", name: "Manama",       position: [26.50, 50.55] },
+    { id: "DOH-1", name: "Doha",         position: [25.46, 51.95] },
+    { id: "AUH-1", name: "Abu Dhabi",    position: [25.22, 54.18] },
+    { id: "DXB-1", name: "Jebel Ali",    position: [25.50, 54.75] },
+    { id: "BND-1", name: "Bandar Abbas", position: [26.62, 56.11] },
+    { id: "SOH-1", name: "Sohar",        position: [24.72, 57.02] },
+    { id: "MCT-1", name: "Muscat",       position: [23.92, 58.58] },
+  ],
+  fleet: [
+    { shipId:"MV-1",  name:"Aurora",   position:[26.55,56.20], speed:14, heading:105, destination:"MCT-1", fuel:6800, cargo:"crude oil",    status:"normal" },
+    { shipId:"MV-2",  name:"Borealis", position:[25.50,57.20], speed:19, heading:270, destination:"DXB-1", fuel:5400, cargo:"containers",   status:"normal" },
+    { shipId:"MV-3",  name:"Cygnus",   position:[25.70,53.00], speed:16, heading:95,  destination:"MCT-1", fuel:7200, cargo:"LNG",          status:"normal" },
+    { shipId:"MV-4",  name:"Dragon",   position:[26.40,56.00], speed:13, heading:110, destination:"SOH-1", fuel:5800, cargo:"bulk grain",    status:"normal" },
+    { shipId:"MV-5",  name:"Emerald",  position:[27.50,51.20], speed:12, heading:165, destination:"DOH-1", fuel:8200, cargo:"crude oil",    status:"normal" },
+    { shipId:"MV-6",  name:"Falcon",   position:[25.40,54.53], speed:22, heading:280, destination:"DOH-1", fuel:4100, cargo:"containers",   status:"normal" },
+    { shipId:"MV-7",  name:"Gharial",  position:[26.50,53.50], speed:14, heading:270, destination:"KWT-1", fuel:750,  cargo:"crude oil",    status:"normal" },
+    { shipId:"MV-8",  name:"Halcyon",  position:[24.93,56.94], speed:19, heading:250, destination:"DMM-1", fuel:5200, cargo:"automobiles",  status:"normal" },
+    { shipId:"MV-9",  name:"Iris",     position:[28.20,50.30], speed:13, heading:175, destination:"BAH-1", fuel:7800, cargo:"crude oil",    status:"normal" },
+    { shipId:"MV-10", name:"Jade",     position:[25.02,57.96], speed:20, heading:285, destination:"BND-1", fuel:6300, cargo:"containers",   status:"normal" },
+    { shipId:"MV-11", name:"Kite",     position:[25.64,52.18], speed:18, heading:95,  destination:"MCT-1", fuel:7600, cargo:"LNG",          status:"normal" },
+    { shipId:"MV-12", name:"Lotus",    position:[29.10,48.80], speed:12, heading:145, destination:"SOH-1", fuel:8500, cargo:"crude oil",    status:"normal" },
+    { shipId:"MV-13", name:"Mirage",   position:[24.60,57.30], speed:21, heading:320, destination:"BAH-1", fuel:5900, cargo:"containers",   status:"normal" },
+    { shipId:"MV-14", name:"Nova",     position:[24.12,58.43], speed:11, heading:290, destination:"DOH-1", fuel:4600, cargo:"bulk cement",  status:"normal" },
+    { shipId:"MV-15", name:"Orca",     position:[26.34,55.91], speed:13, heading:215, destination:"MCT-1", fuel:7100, cargo:"crude oil",    status:"normal" },
+  ],
+};
+
+module.exports = FLEET_DATA;
