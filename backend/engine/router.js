@@ -143,7 +143,7 @@ function astar(startLat, startLng, endLat, endLng, restrictedZones = []) {
       }
       path.unshift([startLat, startLng]);
       path.push([endLat, endLng]);
-      return path; // initial unsimplified path
+      return simplifyPath(path);
     }
 
     openSet.delete(current.k);
