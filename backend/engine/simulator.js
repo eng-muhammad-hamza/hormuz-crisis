@@ -15,7 +15,7 @@ const KNOTS_TO_KM_PER_S = 1.852 / 3600; // 1 knot = 1.852 km/h = km/s
 const FUEL_BURN_REFERENCE_SPEED = 14; // knots
 const FUEL_BURN_REFERENCE_RATE  = 0.85; // tons per nautical mile at reference speed
 const WEATHER_FUEL_MULTIPLIER = 1.3;
-const PROXIMITY_WARN_KM = 5; // initial wider threshold
+const PROXIMITY_WARN_KM = 2;
 const MAX_HISTORY_SNAPSHOTS = 120; // 1 hour at 30s intervals
 
 class ShipSimulator {
