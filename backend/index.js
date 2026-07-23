@@ -220,7 +220,7 @@ wss.on('connection', (ws, req) => {
       // Gated on role === 'admin' so this can never be reached by Command,
       // Captain, or Observer sessions — only someone who explicitly chose
       // the Admin Test Console at login.
-      case 'admin_override_ship_disabled':
+      case 'admin_override_ship':
         if (client.role !== 'admin') { ws.send(JSON.stringify({ type: 'error', data: { message: 'Admin access required' } })); break; }
         try {
           const ship = sim.adminOverrideShip(msg.shipId, msg.patch || {});
