@@ -1,0 +1,610 @@
+@import "tailwindcss";
+
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  HORMUZ CRISIS — Modern C2 Fleet Command Design System   ║
+   ║  Polished Tactical Bridge UI with React Bits & Effects   ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+@theme {
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-display), var(--font-sans), sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Dark Ops (Primary Tactical Naval Bridge) */
+  --color-surface-0: #030712;
+  --color-surface-1: #0A1224;
+  --color-surface-2: #111E38;
+  --color-surface-3: #182B4F;
+
+  --color-line: rgba(56, 189, 248, 0.16);
+  --color-line-strong: rgba(56, 189, 248, 0.35);
+
+  --color-ink-1: #F8FAFC;
+  --color-ink-2: #94A3B8;
+  --color-ink-3: #64748B;
+
+  --color-accent: #00E5FF; /* Electric Tactical Cyan */
+  --color-accent-ink: #030712;
+  --color-accent-amber: #F59E0B;
+
+  --color-danger: #FF3366; /* Tactical Crimson Alert */
+  --color-warning: #F59E0B; /* Threat Advisory Amber */
+  --color-success: #10B981; /* Nominal Radar Emerald */
+  --color-assist: #A855F7; /* Command Purple */
+
+  --radius-card: 14px;
+
+  --animate-blink: blink 1.2s ease-in-out infinite;
+  --animate-blink-fast: blink 0.5s ease-in-out infinite;
+  --animate-float: float-y 3s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 1.8s ease-out infinite;
+  --animate-siren-glow: siren-glow 1.1s ease-in-out infinite;
+  --animate-radar-sweep: radar-sweep 4s linear infinite;
+  --animate-border-beam: border-beam 12s linear infinite;
+
+  @keyframes blink        { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  @keyframes float-y      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+  @keyframes pulse-ring   { 0%{transform:scale(0.8);opacity:0.9} 100%{transform:scale(2.4);opacity:0} }
+  @keyframes siren-glow   { 0%,100%{box-shadow:0 0 25px 3px rgba(255, 51, 102, 0.6)} 50%{box-shadow:0 0 45px 12px rgba(255, 51, 102, 0.25)} }
+  @keyframes radar-sweep  { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  @keyframes border-beam  { 100%{offset-distance:100%} }
+}
+
+/* ── Daylight Console: High-Visibility Maritime Bridge ── */
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Remap Tailwind core slate variables */
+  --color-slate-950: #FFFFFF;
+  --color-slate-900: #F8FAFC;
+  --color-slate-850: #F1F5F9;
+  --color-slate-800: #E2E8F0;
+  --color-slate-700: #CBD5E1;
+  --color-slate-600: #94A3B8;
+  --color-slate-500: #64748B;
+  --color-slate-400: #475569;
+  --color-slate-300: #334155;
+  --color-slate-200: #1E293B;
+  --color-slate-100: #0F172A;
+
+  --color-surface-0: #F1F5F9;
+  --color-surface-1: #FFFFFF;
+  --color-surface-2: #F8FAFC;
+  --color-surface-3: #E2E8F0;
+
+  --color-line: rgba(148, 163, 184, 0.35);
+  --color-line-strong: rgba(100, 116, 139, 0.45);
+
+  --color-ink-1: #0F172A;
+  --color-ink-2: #334155;
+  --color-ink-3: #64748B;
+
+  --color-accent: #0284C7;
+  --color-accent-ink: #FFFFFF;
+  --color-accent-amber: #D97706;
+
+  --color-danger: #DC2626;
+  --color-warning: #D97706;
+  --color-success: #059669;
+  --color-assist: #7C3AED;
+}
+
+/* Comprehensive Daylight Theme Overrides for High-Visibility Bridge */
+[data-theme="light"] body {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .scanlines {
+  display: none !important;
+}
+
+/* Wildcard attribute rules ensure 100% coverage across all slate opacity variants */
+[data-theme="light"] [class*="bg-slate-950"] {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+}
+
+[data-theme="light"] [class*="bg-slate-900"] {
+  background-color: rgba(248, 250, 252, 0.96) !important;
+}
+
+[data-theme="light"] [class*="bg-slate-850"],
+[data-theme="light"] [class*="bg-slate-800"] {
+  background-color: rgba(241, 245, 249, 0.95) !important;
+}
+
+[data-theme="light"] [class*="border-slate-800"],
+[data-theme="light"] [class*="border-slate-700"] {
+  border-color: rgba(203, 213, 225, 0.9) !important;
+}
+
+[data-theme="light"] [class*="text-white"],
+[data-theme="light"] [class*="text-slate-100"] {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] [class*="text-slate-200"] {
+  color: #1E293B !important;
+}
+
+[data-theme="light"] [class*="text-slate-300"] {
+  color: #334155 !important;
+}
+
+[data-theme="light"] [class*="text-slate-400"] {
+  color: #475569 !important;
+}
+
+[data-theme="light"] [class*="text-slate-500"] {
+  color: #64748B !important;
+}
+
+/* Cyan / Accent Tactical Remapping */
+[data-theme="light"] [class*="text-cyan-100"],
+[data-theme="light"] [class*="text-cyan-200"] {
+  color: #0369A1 !important;
+}
+
+[data-theme="light"] [class*="text-cyan-300"],
+[data-theme="light"] [class*="text-cyan-400"] {
+  color: #0284C7 !important;
+}
+
+[data-theme="light"] [class*="bg-cyan-950"] {
+  background-color: #E0F2FE !important;
+  color: #0369A1 !important;
+}
+
+[data-theme="light"] [class*="bg-cyan-500/"] {
+  background-color: rgba(2, 132, 199, 0.12) !important;
+}
+
+[data-theme="light"] [class*="border-cyan-400"],
+[data-theme="light"] [class*="border-cyan-500"] {
+  border-color: #0284C7 !important;
+}
+
+/* Yellow & Amber Remediation: Deep Rich Maritime Amber (Never Neon Yellow) */
+[data-theme="light"] [class*="text-amber-100"],
+[data-theme="light"] [class*="text-amber-200"] {
+  color: #92400E !important;
+}
+
+[data-theme="light"] [class*="text-amber-300"],
+[data-theme="light"] [class*="text-amber-400"],
+[data-theme="light"] [class*="text-yellow-300"],
+[data-theme="light"] [class*="text-yellow-400"],
+[data-theme="light"] [class*="text-yellow-500"] {
+  color: #B45309 !important;
+}
+
+[data-theme="light"] [class*="text-amber-500"],
+[data-theme="light"] [class*="text-amber-600"] {
+  color: #D97706 !important;
+}
+
+[data-theme="light"] [class*="bg-amber-950"],
+[data-theme="light"] [class*="bg-amber-900"],
+[data-theme="light"] [class*="bg-yellow-950"] {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+}
+
+[data-theme="light"] [class*="bg-amber-500/"] {
+  background-color: rgba(217, 119, 6, 0.12) !important;
+}
+
+[data-theme="light"] [class*="border-amber-400"],
+[data-theme="light"] [class*="border-amber-500"] {
+  border-color: #D97706 !important;
+}
+
+/* Rose / Danger Remediation */
+[data-theme="light"] [class*="text-rose-100"],
+[data-theme="light"] [class*="text-rose-200"] {
+  color: #991B1B !important;
+}
+
+[data-theme="light"] [class*="text-rose-300"],
+[data-theme="light"] [class*="text-rose-400"] {
+  color: #DC2626 !important;
+}
+
+[data-theme="light"] [class*="bg-rose-950"],
+[data-theme="light"] [class*="bg-red-950"] {
+  background-color: #FEE2E2 !important;
+  color: #991B1B !important;
+}
+
+[data-theme="light"] [class*="bg-rose-500/"] {
+  background-color: rgba(220, 38, 38, 0.12) !important;
+}
+
+[data-theme="light"] [class*="border-rose-400"],
+[data-theme="light"] [class*="border-rose-500"] {
+  border-color: #EF4444 !important;
+}
+
+/* Emerald / Success Remediation */
+[data-theme="light"] [class*="text-emerald-100"],
+[data-theme="light"] [class*="text-emerald-200"] {
+  color: #065F46 !important;
+}
+
+[data-theme="light"] [class*="text-emerald-300"],
+[data-theme="light"] [class*="text-emerald-400"] {
+  color: #059669 !important;
+}
+
+[data-theme="light"] [class*="bg-emerald-950"],
+[data-theme="light"] [class*="bg-green-950"] {
+  background-color: #D1FAE5 !important;
+  color: #065F46 !important;
+}
+
+[data-theme="light"] [class*="bg-emerald-500/"] {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+}
+
+[data-theme="light"] [class*="border-emerald-400"],
+[data-theme="light"] [class*="border-emerald-500"] {
+  border-color: #10B981 !important;
+}
+
+/* Purple / Mutual Aid Remediation */
+[data-theme="light"] [class*="text-purple-100"],
+[data-theme="light"] [class*="text-purple-200"] {
+  color: #581C87 !important;
+}
+
+[data-theme="light"] [class*="text-purple-300"],
+[data-theme="light"] [class*="text-purple-400"] {
+  color: #7C3AED !important;
+}
+
+[data-theme="light"] [class*="bg-purple-950"] {
+  background-color: #F3E8FF !important;
+  color: #581C87 !important;
+}
+
+[data-theme="light"] [class*="border-purple-400"],
+[data-theme="light"] [class*="border-purple-500"] {
+  border-color: #8B5CF6 !important;
+}
+
+/* ── Light Mode Hover Interactions (Never White-on-White) ── */
+[data-theme="light"] [class*="hover:text-white"]:hover {
+  color: #0284C7 !important;
+}
+
+[data-theme="light"] [class*="hover:text-slate-200"]:hover,
+[data-theme="light"] [class*="hover:text-slate-100"]:hover {
+  color: #0F172A !important;
+}
+
+[data-theme="light"] [class*="hover:text-cyan-300"]:hover {
+  color: #0284C7 !important;
+}
+
+[data-theme="light"] [class*="hover:bg-slate-800"]:hover,
+[data-theme="light"] [class*="hover:bg-slate-850"]:hover {
+  background-color: #E2E8F0 !important;
+}
+
+[data-theme="light"] [class*="hover:bg-slate-700"]:hover {
+  background-color: #CBD5E1 !important;
+}
+
+[data-theme="light"] [class*="hover:bg-slate-900"]:hover {
+  background-color: #F1F5F9 !important;
+}
+
+[data-theme="light"] [class*="hover:border-slate-600"]:hover,
+[data-theme="light"] [class*="hover:border-slate-700"]:hover {
+  border-color: #94A3B8 !important;
+}
+
+[data-theme="light"] [class*="hover:border-cyan-300"]:hover,
+[data-theme="light"] [class*="hover:border-cyan-400"]:hover {
+  border-color: #0284C7 !important;
+}
+
+[data-theme="light"] [class*="hover:border-amber-400"]:hover,
+[data-theme="light"] [class*="hover:border-amber-500"]:hover {
+  border-color: #D97706 !important;
+}
+
+/* ── Light Mode Active States & Clean Shadow Contours ── */
+[data-theme="light"] [class*="shadow-[0_0_"] {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] [class*="shadow-2xl"] {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ── Light Mode Form Inputs, Selects, and Focus States ── */
+[data-theme="light"] input:not([type="range"]),
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+[data-theme="light"] input:not([type="range"]):focus,
+[data-theme="light"] select:focus,
+[data-theme="light"] textarea:focus,
+[data-theme="light"] .focus-ring:focus-visible {
+  border-color: #0284C7 !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.22) !important;
+  outline: none !important;
+}
+
+[data-theme="light"] select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+[data-theme="light"] .glass-panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(203, 213, 225, 0.8) !important;
+  color: #0F172A !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] .glass-panel-elevated {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: rgba(148, 163, 184, 0.5) !important;
+  color: #0F172A !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Leaflet Daylight Control Overrides */
+[data-theme="light"] .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #64748B !important;
+}
+
+[data-theme="light"] .leaflet-control-zoom {
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .leaflet-control-zoom a {
+  background: #FFFFFF !important;
+  color: #0284C7 !important;
+  border-color: #CBD5E1 !important;
+}
+
+[data-theme="light"] .leaflet-control-zoom a:hover {
+  background: #F1F5F9 !important;
+  color: #0369A1 !important;
+}
+
+/* ════════════ RESET & BASE ════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-surface-0);
+  color: var(--color-ink-1);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+/* ════════════ TYPOGRAPHY & LABELS ════════════ */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.label-caps {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.text-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hidden Scrollbar */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: color-mix(in srgb, var(--color-surface-1) 85%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--color-line);
+}
+
+.glass-panel-elevated {
+  background: color-mix(in srgb, var(--color-surface-2) 90%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-line-strong);
+  box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Tactical Corner Markers */
+.hud-corner {
+  position: relative;
+}
+.hud-corner::before, .hud-corner::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+}
+.hud-corner::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+  border-top-left-radius: 4px;
+}
+.hud-corner::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--color-accent);
+  border-right: 2px solid var(--color-accent);
+  border-bottom-right-radius: 4px;
+}
+
+/* Aura Glows */
+.aura-danger {
+  box-shadow: 0 0 30px 0 color-mix(in srgb, var(--color-danger) 35%, transparent);
+}
+.aura-accent {
+  box-shadow: 0 0 30px 0 color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+.aura-warning {
+  box-shadow: 0 0 30px 0 color-mix(in srgb, var(--color-warning) 30%, transparent);
+}
+.aura-success {
+  box-shadow: 0 0 30px 0 color-mix(in srgb, var(--color-success) 30%, transparent);
+}
+
+/* Subtle, non-intrusive ambient grain */
+.scanlines {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.12) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+}
+
+/* ════════════ SCROLLBAR ════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* ════════════ FOCUS RING ════════════ */
+.focus-ring:focus-visible {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 40%, transparent) !important;
+  outline: none;
+}
+.focus-ring::placeholder { color: var(--color-ink-3); }
+
+/* ════════════ TACTICAL SLIDER ════════════ */
+input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  height: 8px; border-radius: 4px;
+  background: var(--color-surface-3); outline: none; width: 100%;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px; border-radius: 4px;
+  background: var(--color-accent); cursor: pointer;
+  box-shadow: 0 0 12px var(--color-accent), 0 2px 6px rgba(0,0,0,0.6);
+  border: 2px solid var(--color-surface-0);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 18px var(--color-accent);
+}
+
+/* ════════════ LEAFLET MAP RESETS ════════════ */
+.leaflet-container {
+  background: var(--color-surface-0) !important;
+  font-family: var(--font-sans) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(3, 7, 18, 0.8) !important;
+  color: var(--color-ink-3) !important;
+  font-size: 10px !important;
+  border-radius: 6px 0 0 0 !important;
+  padding: 2px 8px !important;
+}
+.leaflet-control-zoom {
+  border: 1px solid var(--color-line) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
+}
+.leaflet-control-zoom a {
+  background: var(--color-surface-1) !important;
+  color: var(--color-accent) !important;
+  border-color: var(--color-line) !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  font-size: 16px !important;
+}
+.leaflet-control-zoom a:hover {
+  background: var(--color-surface-2) !important;
+  color: #FFFFFF !important;
+}
+.leaflet-popup-content-wrapper {
+  background: var(--color-surface-1) !important;
+  border: 1px solid var(--color-line-strong) !important;
+  border-radius: 12px !important;
+  color: var(--color-ink-1) !important;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6) !important;
+  padding: 0 !important;
+  backdrop-filter: blur(16px) !important;
+}
+.leaflet-popup-content { margin: 0 !important; }
+.leaflet-popup-tip { background: var(--color-surface-1) !important; }
+.leaflet-tooltip-custom, .leaflet-tooltip {
+  background: color-mix(in srgb, var(--color-surface-1) 95%, transparent) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--color-line-strong) !important;
+  color: var(--color-ink-1) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5) !important;
+}
+.leaflet-tooltip::before { display: none !important; }
+
+/* ════════════ MISC GRID ════════════ */
+.grid-bg {
+  background-image: 
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.siren-pulse { animation: var(--animate-siren-glow); }
