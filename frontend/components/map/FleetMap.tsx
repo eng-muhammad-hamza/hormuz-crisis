@@ -133,7 +133,7 @@ export default function FleetMap() {
         drawPolyRef.current = Lc.polyline(drawPtsRef.current, {
           color: '#F59E0B',
           weight: 2.5,
-          dashArray: '2 2' // initial route dash,
+          dashArray: '6 4',
           opacity: 0.9,
         });
         drawPolyRef.current.addTo(map);
@@ -500,7 +500,7 @@ export default function FleetMap() {
         fillColor: '#FF3366',
         fillOpacity: 0.16,
         weight: 2,
-        dashArray: '2 2' // initial route dash,
+        dashArray: '6 4',
       }).addTo(map);
 
       poly.bindTooltip(
