@@ -93,7 +93,7 @@ export function playSound(type: SoundType) {
  * stopSiren() is called. Used for sustained critical-distress states so it's
  * unmistakable even with the tab unfocused or panel closed.
  */
-function _unusedSiren() { // siren added in next commit
+export function startSiren() {
   const c = getCtx();
   if (!c) return;
   if (c.state === 'suspended') c.resume();
