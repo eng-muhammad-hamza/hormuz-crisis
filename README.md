@@ -6,3 +6,5 @@
 - Node.js 20+
 - Backend: Express + WebSockets (port 4000)
 - Frontend: Next.js 15 + Leaflet (port 3000)
+
+- Distress analyzer includes local heuristic fallback when Anthropic API is unreachable.
