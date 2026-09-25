@@ -8,3 +8,4 @@
 - Frontend: Next.js 15 + Leaflet (port 3000)
 
 - Distress analyzer includes local heuristic fallback when Anthropic API is unreachable.
+- Restricted zone geofencing with polygon drawing tools.
