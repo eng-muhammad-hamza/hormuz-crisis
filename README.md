@@ -9,3 +9,4 @@
 
 - Distress analyzer includes local heuristic fallback when Anthropic API is unreachable.
 - Restricted zone geofencing with polygon drawing tools.
+- Dynamic zone removal with auto path recalculation.
