@@ -11,3 +11,4 @@
 - Restricted zone geofencing with polygon drawing tools.
 - Dynamic zone removal with auto path recalculation.
 - Custom waypoint placement for diversion routing.
+- Real fuel transfer between vessel tanks during mutual assistance.
