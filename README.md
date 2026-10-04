@@ -12,3 +12,4 @@
 - Dynamic zone removal with auto path recalculation.
 - Custom waypoint placement for diversion routing.
 - Real fuel transfer between vessel tanks during mutual assistance.
+- Admin automated directive cycle testing.
