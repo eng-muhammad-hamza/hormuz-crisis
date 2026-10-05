@@ -1,20 +1,36 @@
-version: '3.8'
+version: '3.9'
 
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "4000:4000"
     environment:
       - PORT=4000
+      - NODE_ENV=production
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_WS_URL=ws://backend:4000
     ports:
       - "3000:3000"
     environment:
+      - NODE_ENV=production
       - NEXT_PUBLIC_WS_URL=ws://backend:4000
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     restart: unless-stopped
