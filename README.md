@@ -1,10 +1,16 @@
-# ⚓ HORMUZ CRISIS — Maritime Fleet Command System
+# HORMUZ CRISIS — Maritime Fleet Command System
 
-> Real-time maritime crisis operations command center for the Strait of Hormuz. 15 vessels, live simulation, AI-powered distress analysis, 4 visual modes.
+> Real-time maritime crisis operations command center for the Strait of Hormuz. 15 vessels, live simulation, AI-powered distress analysis, 2 visual modes.
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-green?logo=nodedotjs)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-Backend-lightgrey?logo=express)](https://expressjs.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)](https://www.docker.com/)
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 20+
@@ -41,53 +47,50 @@ NEXT_PUBLIC_WS_URL=ws://localhost:4000 npm run dev
 
 ---
 
-## 🎖️ Operational Roles
+## Operational Roles
 
-When you connect, you choose a role **and enter your name** — this identity is shown to Command in real time and logged on every directive, distress call, and assistance request you send or receive. Other vessels in the fleet are crewed by procedurally-named captains (e.g. "Capt. Reyes") until a human takes the helm.
+Each operator chooses a role and enters their name upon connection. This identity is displayed to Command and logged for all directives, distress calls, and assistance requests. Uncrewed vessels are assigned procedurally-generated captain names.
 
 | Role | Access |
 |------|--------|
-| **COMMAND** | Full fleet visibility, issue directives to any ship (reroute, waypoint divert, hold, resume, change speed, request cargo inspection), draw/remove restricted zones, coordinate mutual aid between vessels, consult the AI Fleet Advisor, view predictive risk forecasts and analytics |
-| **CAPTAIN** | Single-vessel view, respond to directives (ACCEPT or ESCALATE_DISTRESS), submit MAYDAY messages, request mutual aid for your own vessel, accept or decline aid requests from other ships |
-| **OBSERVER** | Full read-only fleet view, real-time updates, sees the same operator identities as Command |
-| **ADMIN** | Everything Command and Captain can do, simultaneously, for any ship — plus the [Admin Test Console](#-admin-test-console) for direct overrides. Exists purely to verify the system end-to-end without needing two browser tabs. |
+| **COMMAND** | Full fleet visibility, issue directives (reroute, divert, hold, resume, change speed, inspect cargo), manage restricted zones, coordinate mutual aid, consult AI Fleet Advisor, view predictive risk forecasts. |
+| **CAPTAIN** | Single-vessel view, respond to directives (ACCEPT or ESCALATE_DISTRESS), submit MAYDAY messages, request/respond to mutual aid. |
+| **OBSERVER** | Full read-only fleet view with real-time updates and operator identities. |
+| **ADMIN** | Combined Command and Captain privileges for any ship, plus the Admin Test Console for system verification. |
 
-### What Command can do to a ship
-- **Reroute** — send to a different port; the A* router recomputes the path live
-- **Divert via waypoint** — arm the waypoint picker, click anywhere on the map; the vessel diverts there then automatically resumes its original course
-- **Hold position** / **Resume course**
-- **Change speed** (4–28 knots, live slider)
-- **Request cargo inspection** — logs manifest, fuel, and crew count to the mission log
-- **Coordinate mutual aid** — pair any two vessels for fuel transfer, medical aid, escort, or cargo offload
-- **Draw / remove restricted zones** — click-to-place polygon vertices on the map; a management list with one-click **Remove** buttons appears whenever zones are active
-- **Consult the AI Fleet Advisor** — Claude analyzes the live fleet situation and returns 3–5 prioritized, actionable recommendations
-- **Review predictive forecasts** — a 2-hour look-ahead surfaces fuel shortfalls, zone-entry collisions, and weather intersections before they happen
+### Command Capabilities
+- **Reroute**: Send ship to a different port (live A* recomputing).
+- **Divert via waypoint**: Divert a vessel to a specific map point before resuming its course.
+- **Hold position / Resume course**
+- **Change speed**: Adjustable 4–28 knots.
+- **Request cargo inspection**: Logs manifest, fuel, and crew count.
+- **Coordinate mutual aid**: Pair vessels for fuel transfer, medical aid, escort, or cargo offload.
+- **Manage restricted zones**: Draw/remove polygon zones on the map.
+- **AI Fleet Advisor**: Obtain 3–5 prioritized, actionable recommendations from the Claude analysis engine.
+- **Predictive forecasts**: 2-hour look-ahead for fuel shortfalls, zone collisions, and weather intersections.
 
-### What a Captain can do
-- **Accept or escalate** any directive from Command (escalating sends a free-form distress message instead of complying)
-- **Broadcast MAYDAY** — free text, automatically analyzed by AI for severity, injury count, and damage estimate
-- **Request mutual aid** for their own ship from any nearby vessel
-- **Accept or decline** aid requests addressed to their ship — accepting a fuel transfer actually moves fuel between the two vessels' tanks in the simulation
-
+### Captain Capabilities
+- **Accept or escalate** directives (escalating sends a distress message).
+- **Broadcast MAYDAY**: Free text submission, analyzed by AI for severity, injuries, and damage.
+- **Request mutual aid** from nearby vessels.
+- **Accept or decline** aid requests (e.g., fuel transfers apply real simulated changes).
 
 ---
 
-## 🗺️ Visual Modes
+## Visual Modes
 
-The interface ships with two refined console modes, built on a Tailwind v4 `@theme` token system (every color, surface, and spacing value is a real Tailwind utility — `bg-surface-1`, `text-ink-2`, `border-line`, `text-accent`, etc. — not inline styles):
+The interface provides two console modes built with Tailwind v4 `@theme` tokens:
 
 | Mode | Description |
 |------|-------------|
-| **DARK OPS** | Low-light console — deep navy-black surfaces, cyan accent, 4-level elevation system |
-| **DAYLIGHT** | High-contrast warm paper-white console for daytime bridge use |
+| **DARK OPS** | Low-light console with deep navy-black surfaces and cyan accents. |
+| **DAYLIGHT** | High-contrast warm paper-white console for daytime use. |
 
-Switching is a single `data-theme` attribute swap on `<html>` — every color, including the fixed ship-status hex values used on canvas/SVG layers, repaints instantly with no flash.
-
-> **Note:** Earlier prototypes included "Radar War" and "Nav Chart" tactical overlay modes. They added visual noise without functional value (the radar projection didn't reliably align with the live map) and have been removed entirely in favor of two well-executed console modes.
+Theme switching uses a `data-theme` attribute on `<html>` for instant repaints.
 
 ---
 
-## ⚙️ System Architecture
+## System Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -115,23 +118,23 @@ Switching is a single `data-theme` attribute swap on `<html>` — every color, i
 
 ---
 
-## 🛳️ Fleet Simulation
+## Fleet Simulation
 
 ### Ship Movement
-- Each ship runs A* pathfinding on an 80×100 navigable water grid
-- Paths are simplified with Douglas-Peucker algorithm
-- Ships advance at 1Hz, path recalculated when zones intersect route
+- A* pathfinding on an 80×100 navigable water grid.
+- Paths simplified with the Douglas-Peucker algorithm.
+- 1Hz update rate; paths recalculate upon zone intersection.
 
 ### Fuel Model
-- Burn rate scales with **speed cubed** relative to a 14-knot reference (`burn ∝ (speed/14)³`) — physically, drag-driven fuel consumption roughly follows a cubic curve, so ordering a ship to flank speed burns disproportionately more fuel, not just proportionally more
-- +30% fuel penalty on top of that while in adverse weather zones
-- Predictive alerts fire when projected fuel < needed fuel for the remaining route
-- **Simulated time multiplier**: each real-world second advances the simulation clock by `simTimeMultiplier` seconds (default **90×**). This keeps fuel burn, distance traveled, and ETA internally consistent with each other while making the whole fleet's progress visible within a normal testing session — at the default rate a 14kn vessel measurably loses fuel within the first minute of watching, rather than requiring a multi-hour real-time wait to see any change. The Admin Test Console can push this to 30×–3600× on demand.
+- Burn rate scales with **speed cubed** relative to a 14-knot reference (`burn ∝ (speed/14)³`).
+- 30% fuel penalty applied in adverse weather zones.
+- Predictive alerts trigger when projected fuel is insufficient for the remaining route.
+- **Simulated time multiplier**: Real-world seconds advance the simulation by `simTimeMultiplier` (default 90×). 
 
 ### Routing Triggers
-- New restricted zone drawn that intersects current path
-- Captain accepts REROUTE or WAYPOINT directive from Command
-- Zone removed → ships automatically recompute optimal path
+- Intersections with new restricted zones.
+- Captain accepts REROUTE or WAYPOINT directives.
+- Automatic optimal path recomputation upon zone removal.
 
 ### Status States
 | Status | Meaning |
@@ -146,40 +149,34 @@ Switching is a single `data-theme` attribute swap on `<html>` — every color, i
 | `stopped` | HOLD directive accepted |
 | `assisting` | En route to or actively assisting another vessel |
 
-### Ship identity
-Every vessel carries a `defaultCaptainName` (procedurally assigned at boot) and a `crewCount`. The moment a human Captain authenticates against a ship, `assignedCaptain` switches to their entered name and `operatorSessionId` is set — Command and Observers see a filled/hollow dot (`●`/`○`) next to the ship's captain name to distinguish a live human from a simulated one. Disconnecting reverts the ship to its default captain.
+---
+
+## Admin Test Console
+
+A verification role used to test system components independently:
+
+- **Force ship state**: Override speed, heading, fuel, status, or position.
+- **Synthetic alerts**: Fire alerts of any type/severity for pipeline verification.
+- **Siren testing**: Preview or toggle the continuous war siren manually.
+- **Autonomous directive cycle**: Issue and auto-accept directives simultaneously.
+- **Simulation speed control**: Adjust `simTimeMultiplier` (30×–3600×).
+- **Fleet snapshot**: Live-refreshing table of fleet status, fuel, and speed.
 
 ---
 
-## 🛠️ Admin Test Console
+## Audio System
 
-A fourth login role, separate from Command/Captain/Observer, intended purely for verifying the system works rather than for normal operation:
+The audio implementation uses a shared, persistent `AudioContext` (`lib/audio.ts`):
 
-- **Force any ship's live values** — speed, heading, fuel, status — bypassing the directive/approval pipeline entirely, with one-click presets ("Drain to 0", "Max speed")
-- **Fire a synthetic alert of any type/severity on demand**, to confirm the alert pipeline and sound actually fire without waiting for a real incident
-- **Preview or toggle the continuous war siren independently**, so you can hear it without needing a live critical alert
-- **Run a full Command → Captain directive cycle alone** — issues the directive as Command and immediately auto-accepts it as the target ship's Captain on the same connection, proving the round trip works without needing two browser tabs
-- **Control simulation speed** (30×–3600×) to fast-forward fuel burn and voyages for testing
-- **A live, auto-refreshing fleet snapshot table** of every ship's status, fuel %, and speed
-
-Admin sessions are also granted full Command *and* Captain authority simultaneously in every other panel (Directives, Mutual Aid, ship detail actions), so the entire request/response loop can be exercised from one login.
+- Initializes on first user interaction.
+- One-shot chimes (`alert`, `distress`, `warning`, `arrival`, `directive`, `success`).
+- Continuous two-tone siren that loops for active critical alerts.
 
 ---
 
-## 🔊 Audio / Siren System
+## AI Integration
 
-Browsers block audio output until a user gesture unlocks it; the previous implementation created a fresh `AudioContext` per sound, which silently failed after the first call in most browsers — alerts looked like they fired but were never actually audible. This has been replaced with a single shared, persistent `AudioContext` (`lib/audio.ts`):
-
-- `unlockAudio()` fires on the very first click in the app (role selection on the login screen)
-- One-shot chimes (`alert`, `distress`, `warning`, `arrival`, `directive`, `success`) for discrete events
-- A genuine **continuous two-tone war siren** (`startSiren()` / `stopSiren()`) that wails for as long as any critical alert remains unacknowledged anywhere in the fleet, and stops the instant it's cleared — independent of the one-shot chimes
-- The Admin Test Console exposes direct buttons to preview every chime and toggle the siren manually, so its behavior can be verified without waiting for a real critical event
-
----
-
-## 🤖 AI Integration
-
-Distress messages are processed by Claude (Anthropic) via `/api/analyze-distress`:
+Distress messages are analyzed by Claude via `/api/analyze-distress`:
 
 **Input:** Free-form captain message  
 **Output:**
@@ -199,48 +196,41 @@ Distress messages are processed by Claude (Anthropic) via `/api/analyze-distress
 
 ---
 
-## 📡 WebSocket Protocol
+## WebSocket Protocol
 
 ### Client → Server
 
 | Message Type | Description |
 |---|---|
-| `authenticate` | Set role, shipId, and **operatorName** — registers the human's identity against the simulator |
-| `issue_directive` | Command issues directive to ship — `REROUTE`, `WAYPOINT`, `HOLD`, `RESUME`, `SPEED_CHANGE`, `INSPECT` |
-| `respond_directive` | Captain ACCEPTS or ESCALATES |
-| `add_zone` | Command draws restricted zone |
-| `remove_zone` | Command removes zone |
-| `submit_distress` | Captain sends MAYDAY |
-| `acknowledge_alert` | ACK an active alert |
-| `request_assistance` | Request ship-to-ship aid (fuel transfer, medical, escort, cargo offload) |
-| `respond_assistance` | Receiving captain accepts (applies the real effect — e.g. fuel actually moves between tanks) or declines |
-| `admin_override_ship` | **Admin only** — directly force a ship's speed, fuel, heading, status, or position, bypassing approval |
-| `admin_fire_test_alert` | **Admin only** — fire a synthetic alert of any type/severity for pipeline verification |
-| `admin_set_sim_speed` | **Admin only** — change `simTimeMultiplier` (30×–3600×) |
-| `admin_issue_and_accept_directive` | **Admin only** — issues a directive as Command and immediately auto-accepts it as Captain on the same connection |
+| `authenticate` | Register operator role and identity. |
+| `issue_directive` | Issue `REROUTE`, `WAYPOINT`, `HOLD`, `RESUME`, `SPEED_CHANGE`, or `INSPECT`. |
+| `respond_directive` | Captain `ACCEPTS` or `ESCALATES`. |
+| `add_zone` / `remove_zone` | Manage restricted zones. |
+| `submit_distress` | Captain sends MAYDAY. |
+| `acknowledge_alert` | ACK an active alert. |
+| `request_assistance` / `respond_assistance` | Manage ship-to-ship aid requests and responses. |
+| `admin_override_ship` | Force ship state parameters. |
+| `admin_fire_test_alert` | Fire synthetic alerts. |
+| `admin_set_sim_speed` | Change `simTimeMultiplier`. |
+| `admin_issue_and_accept_directive` | Complete a directive loop in one action. |
 
 ### Server → Client
 
 | Message Type | Description |
 |---|---|
-| `init` | Full state on connect, including active `operators` and `assistanceRequests` |
-| `fleet_update` | Full state snapshot (1Hz) |
-| `alert` | New alert fired |
-| `directive` / `directive_received` | Directive issued |
-| `directive_response` | Captain responded |
-| `distress` | New distress message |
-| `distress_update` | AI analysis completed |
-| `zone_update` | Zone added/removed |
-| `assistance_request` | A vessel is requesting aid |
-| `assistance_response` | Aid request accepted/declined, with the resulting effect already applied |
-| `client_count` | Connected operators |
-| `admin_override_applied` | Confirms an admin override was applied, with the resulting ship state |
-| `admin_directive_cycle_complete` | Confirms the admin's issue→accept directive cycle finished |
-| `sim_speed_changed` | Broadcasts the new `simTimeMultiplier` to every connected client |
+| `init` | Full initial state on connect. |
+| `fleet_update` | Full state snapshot (1Hz). |
+| `alert` | Fired when new alert generated. |
+| `directive` / `directive_received` / `directive_response` | Directive state updates. |
+| `distress` / `distress_update` | Distress event and AI analysis completion. |
+| `zone_update` | Restricted zone updates. |
+| `assistance_request` / `assistance_response` | Mutual aid event updates. |
+| `client_count` | Number of connected operators. |
+| `admin_override_applied` / `admin_directive_cycle_complete` / `sim_speed_changed` | Admin action confirmations. |
 
 ---
 
-## 🔔 Alert Types
+## Alert Types
 
 | Type | Trigger |
 |------|---------|
@@ -256,67 +246,46 @@ Distress messages are processed by Claude (Anthropic) via `/api/analyze-distress
 
 ---
 
-## 🌊 Weather Zones
+## Weather Zones
 
-Three pre-configured simulated weather zones:
-- **Gulf Squall Alpha** — Moderate, 35kn winds (near Strait of Hormuz)
-- **Persian Dust Storm** — Severe, 55kn winds (central Persian Gulf)
-- **Oman Sea Chop** — Light, 22kn winds (Gulf of Oman)
-
-Ships in weather zones incur +30% fuel burn. Command can reroute ships around weather.
+Pre-configured simulated weather zones apply a +30% fuel burn penalty:
+- **Gulf Squall Alpha**: Moderate, 35kn winds
+- **Persian Dust Storm**: Severe, 55kn winds
+- **Oman Sea Chop**: Light, 22kn winds
 
 ---
 
-## 📊 Features Overview
+## Features Overview
 
-- ✅ 15 active ships with A* pathfinding in navigable waters
-- ✅ Real-time WebSocket sync (1Hz, <500ms delivery)
-- ✅ Role-based access: Command / Captain / Observer / Admin, each with a captured human identity (name) visible to Command
-- ✅ Interactive zone drawing **and removal** on the map (Command only) with a live zone management list
-- ✅ Waypoint diversion — click-to-place a diversion point on the map; vessel auto-resumes original course after reaching it
-- ✅ Cargo inspection directive — logs manifest, fuel, and crew count on demand
-- ✅ Geofence breach alerts (<1 second)
-- ✅ Proximity collision warnings (2km threshold)
-- ✅ Physically-grounded fuel model (speed³ drag scaling) with an adjustable simulated-time multiplier so burn-down is actually observable live, not just on paper
-- ✅ AI distress message analysis (Claude API) with graceful rule-based fallback
-- ✅ AI Fleet Advisor — proactive, prioritized recommendations for Command, generated from live fleet state
-- ✅ Predictive panel — 2-hour look-ahead for fuel shortfalls, zone collisions, and weather intersections, using the same fuel formula as the backend
-- ✅ Ship-to-ship mutual aid with **real simulated effects** — accepted fuel transfers move actual tons between tanks; escort/medical/cargo-offload requests update both vessels' status and the mission log
-- ✅ Admin Test Console — force any ship's values, fire synthetic alerts, toggle the siren, run a full directive cycle alone, control sim speed
-- ✅ A genuine continuous war siren (not a single beep) that loops while any critical alert is outstanding, built on a persistent shared `AudioContext` that's correctly unlocked on first user interaction
-- ✅ Two refined console themes (Dark Ops / Daylight), built entirely on Tailwind v4 `@theme` tokens — no ad-hoc inline color values
-- ✅ Playback timeline (30-second snapshots, 1-hour history)
-- ✅ Mission event log
-- ✅ Fleet analytics (status pie, fuel bars, history chart, cargo manifest, weather impact)
-- ✅ Smooth ship movement interpolation with directional wake trails
-- ✅ Single closeable side-panel system — every panel (Alerts, Distress, Directives, Analytics, Predictive, Advisor, Assistance, Admin) opens via a TopBar toggle and always has a visible ✕ to close
-- ✅ Fuel bars, ETA, heading, weather indicators per ship
-- ✅ GSAP-powered fuel-digit ticker and alert screen-shake, layered alongside Framer Motion (used for layout/mount transitions throughout)
-- ✅ Docker Compose deployment
+- 15 active ships with A* pathfinding.
+- Real-time WebSocket sync (1Hz).
+- Role-based access control with captured operator identities.
+- Interactive map-based restricted zone management.
+- Waypoint diversion routing.
+- Cargo inspection directives.
+- Low-latency geofence and proximity alerts.
+- Physical fuel model (speed³ scaling) with adjustable simulation time.
+- AI distress message analysis (Claude API) with rule-based fallback.
+- AI Fleet Advisor for proactive recommendations.
+- Predictive panel for fuel and collision forecasting.
+- Simulated ship-to-ship mutual aid mechanics.
+- Admin Test Console for system verification.
+- Continuous audio siren for critical alerts.
+- Two console themes (Dark Ops / Daylight) via Tailwind v4.
+- Playback timeline (1-hour history).
+- Mission event log and fleet analytics.
+- Smooth ship movement interpolation with wake trails.
+- Docker Compose deployment.
 
 ---
 
-## 📝 Documented Assumptions
+## Technical Considerations
 
-1. **Weather data**: Simulated weather zones are used instead of live API data (Open-Meteo would require network access during judging). Three representative zones cover the operational area.
-2. **Map tiles**: CartoDB tiles are hardcoded per theme (allowed per spec).
-3. **Fuel burn**: A speed³ drag-scaled model normalized against a 14-knot reference rate, rather than vessel-class specific consumption curves. A `simTimeMultiplier` (default 90×) advances simulated time faster than real time so the model's effects are observable in a normal testing session.
-4. **Port accessibility**: Ships navigate to the nearest navigable water cell to port coordinates (some ports are at grid edges).
-5. **Playback**: Stores 30-second snapshots for 1 hour (120 snapshots). Full state reconstruction at arbitrary timestamps is not implemented per spec allowance.
-6. **Multiple route options**: Basic implementation — single optimal A* path. Multi-candidate routing (bonus) would use k-shortest paths algorithm.
-7. **Supabase**: Omitted in favor of in-memory state to keep the system self-contained and runnable on a laptop without cloud dependencies.
-8. **Admin role**: Not part of the original brief's role set — added specifically as a verification tool. It has no in-universe justification (no "Admin" exists on a real ship) and is clearly labeled as a test console in the UI.
-
----
-
-## 🏆 Bonus Features Implemented
-
-- **Predictive alerts**: Zone entry and fuel shortfall forecast up to 2 hours ahead in a dedicated panel
-- **Ship-to-ship assistance**: Full request → accept/decline → effect pipeline (fuel actually transfers between vessels; escort/medical/cargo-offload update both ships' state)
-- **AI fleet advisor**: Beyond reactive distress parsing, proactively analyzes the whole fleet and returns ranked, reasoned recommendations Command can act on
-- **Operator identity system**: Human names are captured at login, propagated through the simulator, and shown to Command/Observers — distinguishing live-crewed ships from simulated ones
-- **Waypoint diversion routing**: A* re-routes through an arbitrary operator-placed point, then automatically resumes the original destination — not just port-to-port rerouting
-- **Admin Test Console**: A dedicated verification surface with direct ship overrides, synthetic alert firing, siren toggling, an autonomous directive-cycle runner, and simulation-speed control — built so every claimed feature can actually be checked without guesswork
+1. **Weather data**: Simulated weather zones used instead of live API data.
+2. **Fuel burn**: Speed³ drag-scaled model normalized against a 14-knot reference rate.
+3. **Port accessibility**: Ships navigate to the nearest navigable grid cell to port coordinates.
+4. **Playback**: Stores 30-second snapshots for 1 hour without full state reconstruction.
+5. **Storage**: In-memory state utilized to maintain local execution without external database dependencies.
 
 ---
 
@@ -324,6 +293,6 @@ Ships in weather zones incur +30% fuel burn. Command can reroute ships around we
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | Yes (for AI) | — | Claude API key for distress analysis |
+| `ANTHROPIC_API_KEY` | Yes | — | Claude API key for distress analysis |
 | `NEXT_PUBLIC_WS_URL` | No | `ws://localhost:4000` | Backend WebSocket URL |
 | `PORT` | No | `4000` | Backend server port |
